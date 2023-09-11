@@ -28,12 +28,12 @@ class categoryController extends Controller
             'slug' => str($request->name)
         ]);
         $category = $this->categories->latest()->paginate(5);
-        return view('category.index',compact('category'));
+        return  redirect()->view('category.index',compact('category'));
     }
     public function create()
     {
 
-        $htmlOption = $this->getCategory();
+        $htmlOption = $this->getCategory('');
         return view('category.add', compact('htmlOption'));
     }
     public function getCategory($parentId){
@@ -51,9 +51,18 @@ class categoryController extends Controller
     }
     public function delete($id)
     {
-
+        $this->categories->find($id)->delete();
        
-        return view('category.index');
+        return $this->index();
+    }
+    public function update($id,Request $request){
+        $this->categories->find($id)->update([
+            'name' =>$request->name,
+            'parent_id'=> $request->parent_id,
+            'slug' => str($request->name)
+        ]);
+        return $this->index();
+
     }
 
 

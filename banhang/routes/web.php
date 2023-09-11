@@ -39,10 +39,32 @@ Route::prefix('categories')->group(function () {
     'as' => 'categories.edit',
     'uses' => 'CategoryController@edit'
    ]);
+   Route::get('/update/{id}',[
+    'as' => 'categories.update',
+    'uses' => 'CategoryController@update'
+   ]);
     Route::get('/delete/{id}', [
         'as' => 'categories.delete',
         'uses' => 'CategoryController@delete'
     ]);
+   
+});
+Route::prefix('menus')->group(function () {
+    Route::get('/', [
+        'as' => 'menus.index',
+        'uses' => 'menuController@index'
+    ]);
+    Route::get('/create', [
+        'as' => 'menus.create',
+        'uses' => 'menuController@create'
+    ]);
+    Route::post('/store', [
+        'as' => 'menus.store',
+        'uses' => 'menuController@store'
+    ]);
+
+    
+
    
 });
 
