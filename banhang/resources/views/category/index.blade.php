@@ -21,32 +21,31 @@
   <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
+      <th scope="col">Tên Danh Mục</th>
+      <th scope="col">Action</th>
+     
     </tr>
   </thead>
   <tbody>
+    @foreach ($category as $item)
     <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
+     
+          
+      
+      <th scope="row">{{$item->id}}</th>
+      <th scope="row">{{$item->name}}</th>
+      <td><a href="{{route('categories.edit',['id'=>$item->id])}}"class="btn btn-default">Sửa</a>
+        <a href="{{route('categories.delete',['id'=>$item->id])}}"class="btn btn-danger">Xóa</a></td>
+     
     </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td colspan="2">Larry the Bird</td>
-      <td>@twitter</td>
-    </tr>
+    @endforeach
   </tbody>
 </table>
+<div class="col-md-12">
+  {{$category->links() }}
 </div>
+</div>
+
 </div>
         <!-- /.row -->
       </div><!-- /.container-fluid -->

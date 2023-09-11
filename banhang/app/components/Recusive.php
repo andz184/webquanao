@@ -13,14 +13,21 @@ class Recusive {
        
     } 
 
-    public function categoryRecusive($id = 0){
-        $data = categories::all();
+    public function categoryRecusive($parentId,$id = 0){
+        // $data = categories::all();
        
         foreach($this->data as $value){
+
             if($value['parent_id'] == $id){
-                $this->htmlselect .= "<option>".$value['name'].
-                "</option>";
-               $this->categoryRecusive($value['id']);
+                if(!empty($parentId) && $parentId == $value['id']){
+                    $this->htmlselect .= "<option selected >"."".$value['name'].
+                    "</option>";
+                }else {
+                    $this->htmlselect .= "<option>"."".$value['name'].
+                    "</option>";
+                }
+               
+               $this->categoryRecusive($parentId,$value['id']);
              
 }
 
