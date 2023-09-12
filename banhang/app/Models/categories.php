@@ -11,5 +11,5 @@ class categories extends Model
     use HasFactory;
     use SoftDeletes;
     protected $table = 'categories';
-    protected $fillable = ['name', 'paren_id', 'slug'];
+    protected $fillable = ['name', 'parent_id','slug'];
 }

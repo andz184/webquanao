@@ -16,13 +16,13 @@ class menuController extends Controller
         $this->menu = $menus;
     }
     public function index(){
-        $menu = $this->menu->simplepaginate(5);
+        $menu = $this->menu->latest()->simplepaginate(5);
         return view('menus.index',compact('menu'));
     }
     public function create()
     {
 
-       $htmlOption = $this->menuRecusive->menuRecusiveAdd();
+       $htmlOption = $this->menuRecusive->menuRecusiveAdd($parent_id = '');
        
         return view('menus.add',compact('htmlOption'));
     }
@@ -36,5 +36,26 @@ class menuController extends Controller
         
         return redirect()->route('menus.index');
 
+    }
+    public function edit($id)
+    {
+        $menu = $this->menu->find($id);
+      
+        $htmlOption = $this->menuRecusive->menuRecusiveEdit($menu->parent_id);
+     
+        return view('menus.edit',compact('menu','htmlOption'));
+    }
+    public function update($id,Request $request){
+        $this->menu->find($id)->update([
+            'name' =>$request->name,
+            'parent_id'=> $request->parent_id,
+            'slug' => str($request->name)
+        ]);
+        return redirect()->route('menus.index');
+
+    }
+    public function delete($id){
+        $this->menu->find($id)->delete();
+        return redirect()->route('menus.index');
     }
 }

@@ -13,12 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/',[\App\Http\Controllers\adminController::class,'loginAdmin'])->name('login');
+Route::post('/',[\App\Http\Controllers\adminController::class,'postloginAdmin'])->name('postLogin');
 Route::get('/home', function () {
     return view('home');
-});
+})->name('home');
 
 Route::prefix('categories')->group(function () {
     Route::get('/', [
@@ -61,6 +60,18 @@ Route::prefix('menus')->group(function () {
     Route::post('/store', [
         'as' => 'menus.store',
         'uses' => 'menuController@store'
+    ]);
+    Route::get('/edit/{id}', [
+        'as' => 'menus.edit',
+        'uses' => 'menuController@edit'
+    ]);
+    Route::get('/update/{id}', [
+        'as' => 'menus.update',
+        'uses' => 'menuController@update'
+    ]);
+    Route::get('/delete/{id}', [
+        'as' => 'menus.delete',
+        'uses' => 'menuController@delete'
     ]);
 
     

@@ -36,8 +36,8 @@
       <th scope="row">{{$item->id}}</th>
       <th scope="row">{{$item->name}}</th>
       <th scope="row">{{$item->slug}}</th>
-      <td><a href=""class="btn btn-default">Sửa</a>
-        <a href=""class="btn btn-danger">Xóa</a></td>
+      <td><a href="{{route('menus.edit',['id'=>$item->id])}}"class="btn btn-default">Sửa</a>
+        <a href="{{route('menus.delete',['id'=>$item->id])}}"class="btn btn-danger">Xóa</a></td>
      
     </tr>
     @endforeach

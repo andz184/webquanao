@@ -16,5 +16,22 @@ class menuRecusive {
         }
         return $this->html;
     }
+    public function menuRecusiveEdit($parent_id,$parenId = 0,$subMark = ''){
+        $data = menu::where('parent_id',$parenId) ->get();
+        foreach($data as $dataItem){
+            if($parent_id == $dataItem['id']){
+                $this->html .= '<option selected value="'.$dataItem->id.'">'.$subMark.$dataItem->name.'</option>';
+            }else {
+                $this->html .= '<option value="'.$dataItem->id.'">'.$subMark.$dataItem->name.'</option>';
+            }
+            
+        $this->menuRecusiveAdd($dataItem->id,$subMark.'--');
+        }
+        return $this->html;
+    }
+
+    
+    
+    
 }
 ?>

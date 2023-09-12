@@ -24,16 +24,17 @@ class categoryController extends Controller
     public function store(Request $request){
         $this->categories->create([
             'name' =>$request->name,
-            'parent_id'=> $request->parent_id,
-            'slug' => str($request->name)
+            'parent_id'=> $request->parent_id,      
+            'slug'=> $request->slug
         ]);
-        $category = $this->categories->latest()->paginate(5);
-        return  redirect()->view('category.index',compact('category'));
+       
+       
+        return redirect()->route('categories.index');
     }
     public function create()
     {
 
-        $htmlOption = $this->getCategory('');
+        $htmlOption = $this->getCategory($parentId= null);
         return view('category.add', compact('htmlOption'));
     }
     public function getCategory($parentId){
@@ -59,7 +60,8 @@ class categoryController extends Controller
         $this->categories->find($id)->update([
             'name' =>$request->name,
             'parent_id'=> $request->parent_id,
-            'slug' => str($request->name)
+            'slug'=> $request->slug
+           
         ]);
         return $this->index();
 
